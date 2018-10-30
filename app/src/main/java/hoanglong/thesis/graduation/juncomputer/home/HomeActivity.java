@@ -81,22 +81,12 @@ public class HomeActivity extends AppCompatActivity
     private void loadHomeFragment() {
         // selecting appropriate nav menu item
         selectNavMenu();
-
-        // set toolbar title
-
-        // if user select the current navigation menu again, don't do anything
-        // just close the navigation drawer
         if (getSupportFragmentManager().findFragmentByTag(CURRENT_TAG) != null) {
             drawer.closeDrawers();
 
             // show or hide the fab button
             return;
         }
-
-        // Sometimes, when fragment has huge data, screen seems hanging
-        // when switching between navigation menus
-        // So using runnable, the fragment is loaded with cross fade effect
-        // This effect can be seen in GMail app
         Runnable mPendingRunnable = new Runnable() {
             @Override
             public void run() {
@@ -110,10 +100,7 @@ public class HomeActivity extends AppCompatActivity
             }
         };
 
-        // If mPendingRunnable is not null, then add to the message queue
-        if (mPendingRunnable != null) {
-            mHandler.post(mPendingRunnable);
-        }
+        mHandler.post(mPendingRunnable);
 
         //Closing drawer on item click
         drawer.closeDrawers();
@@ -128,22 +115,9 @@ public class HomeActivity extends AppCompatActivity
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 1:
-                // photos
+                // category
                 CategoryFragment categoryFragment = new CategoryFragment();
                 return categoryFragment;
-//            case 2:
-//                // movies fragment
-//                MoviesFragment moviesFragment = new MoviesFragment();
-//                return moviesFragment;
-//            case 3:
-//                // notifications fragment
-//                NotificationsFragment notificationsFragment = new NotificationsFragment();
-//                return notificationsFragment;
-//
-//            case 4:
-//                // settings fragment
-//                SettingsFragment settingsFragment = new SettingsFragment();
-//                return settingsFragment;
             default:
                 return new HomeFragment();
         }
@@ -171,14 +145,6 @@ public class HomeActivity extends AppCompatActivity
                         break;
                     case R.id.nav_category:
                         drawer.closeDrawers();
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
-//                                startActivity(intent);
-//                                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-//                            }
-//                        },300);
                         navItemIndex = 1;
                         CURRENT_TAG = TAG_CATEGORY;
                         loadHomeFragment();

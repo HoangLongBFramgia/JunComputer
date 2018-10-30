@@ -12,12 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hoanglong.thesis.graduation.juncomputer.Category.subCategory.phone.PhoneCategoryFragment;
 import hoanglong.thesis.graduation.juncomputer.R;
 import hoanglong.thesis.graduation.juncomputer.model.Category;
+import hoanglong.thesis.graduation.juncomputer.utils.FragmentTransactionUtils;
 
 public class CategoryFragment extends Fragment implements CategoryAdapter.OnClickCategoryItem {
 
-    @BindView(R.id.recyclerViewCategory)
+    @BindView(R.id.recycler_category)
     RecyclerView mRecyclerCategory;
     private List<Category> mCategories;
 
@@ -62,6 +64,15 @@ public class CategoryFragment extends Fragment implements CategoryAdapter.OnClic
         switch (category.getType()){
             case "phone":
                 // TODO: 30/10/2018
+                PhoneCategoryFragment phoneCategoryFragment = new PhoneCategoryFragment();
+                if (getFragmentManager() != null) {
+                    FragmentTransactionUtils.addFragment(
+                            getFragmentManager(),
+                            phoneCategoryFragment,
+                            R.id.frame_home,
+                            PhoneCategoryFragment.TAG,
+                            true,-1,-1);
+                }
                 break;
             case "tablet":
                 // TODO: 30/10/2018
